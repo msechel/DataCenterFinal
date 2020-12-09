@@ -1,0 +1,31 @@
+##
+## You provide this
+##
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: database-manager
+spec:
+  selector:
+    matchLabels:
+      app: database-manager
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: database-manager
+    spec:
+      containers:
+      - name: database-manager
+        image: msech/database-manager
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+        env:
+          - name: RABBITMQ_HOST
+            value: 'rabbitmq'
+          - name: REDIS_HOST
+            value: 'redis'
+          - name: REQUEST_REDIS_HOST
+            value: 'redis-lookup'

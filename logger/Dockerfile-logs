@@ -1,0 +1,18 @@
+##
+## You provide this
+##
+
+FROM ubuntu:latest
+
+RUN mkdir -p /app/logs
+
+COPY ./logs.py /app/logs
+
+RUN apt-get -y update
+RUN apt-get install -y --fix-missing python3 python3-pip
+
+RUN cd /app/logs && \
+    pip3 install --upgrade pika redis jsonpickle requests
+    
+CMD cd /app/logs && \
+    python3 -u logs.py 

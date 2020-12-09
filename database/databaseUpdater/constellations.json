@@ -1,0 +1,18 @@
+{
+    "STARLINK" : {
+        "redis_id": 1,
+        "link": "https://celestrak.com/NORAD/elements/starlink.txt"
+    },
+    "GPS" : {
+        "redis_id": 2,
+        "link":  "https://celestrak.com/NORAD/elements/gps-ops.txt"
+    },
+    "IRIDIUM" : {
+        "redis_id": 3,
+        "link": "https://celestrak.com/NORAD/elements/iridium.txt"
+    },
+    "INTELSAT" : {
+        "redis_id": 4,
+        "link": "https://celestrak.com/NORAD/elements/intelsat.txt"
+    }
+}

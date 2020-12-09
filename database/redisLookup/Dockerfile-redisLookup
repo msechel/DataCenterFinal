@@ -1,0 +1,24 @@
+FROM continuumio/anaconda
+
+# Run worker server
+RUN mkdir -p /app/redisLookup
+
+COPY ./requestRedisID.py /app/redisLookup
+COPY ./constellations.json /app/redisLookup
+
+RUN /bin/bash && \
+    . /root/.bashrc && \
+    conda init bash && \
+    conda create -n final python=3.5 && \
+    conda activate final && \
+    conda install -n final -c conda-forge redis-py && \
+    conda install -n final -c conda-forge pika && \
+    conda install -n final -c conda-forge jsonpickle && \
+    conda install -n final -c conda-forge flask
+
+CMD /bin/bash && \
+    . /root/.bashrc && \
+    conda activate final && \
+    cd /app/redisLookup && \
+    python3 requestRedisID.py constellations.json
+

@@ -1,0 +1,31 @@
+##
+## You provide this
+##
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: request-handler
+spec:
+  selector:
+    matchLabels:
+      app: request-handler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: request-handler
+    spec:
+      containers:
+      - name: request-handler
+        image: msech/request-handler
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+        ports:
+        - containerPort: 5000
+        env:
+          - name: RABBITMQ_HOST
+            value: 'rabbitmq'
+          - name: REDIS_HOST
+            value: 'redis'

@@ -1,0 +1,23 @@
+FROM continuumio/anaconda
+
+# Run worker server
+RUN mkdir -p /app/requestHandler
+
+COPY ./requestHandler.py /app/requestHandler
+
+RUN /bin/bash && \
+    . /root/.bashrc && \
+    conda init bash && \
+    conda create -n final python=3.5 && \
+    conda activate final && \
+    conda install -n final -c anaconda requests && \
+    conda install -n final -c conda-forge pika && \
+    conda install -n final -c conda-forge jsonpickle && \
+    conda install -n final -c conda-forge flask
+
+CMD /bin/bash && \
+    . /root/.bashrc && \
+    conda activate final && \
+    cd /app/requestHandler && \
+    python3 -u requestHandler.py
+

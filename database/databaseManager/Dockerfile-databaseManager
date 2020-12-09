@@ -1,0 +1,25 @@
+FROM continuumio/anaconda
+
+# Run worker server
+RUN mkdir -p /app/databaseManager
+
+COPY ./databaseManager.py /app/databaseManager
+
+RUN /bin/bash && \
+    . /root/.bashrc && \
+    conda init bash && \
+    conda create -n final python=3.5 && \
+    conda activate final && \
+    conda install -n final -c anaconda requests && \
+    conda install -n final -c conda-forge skyfield && \
+    conda install -n final -c conda-forge redis-py && \
+    conda install -n final -c conda-forge pika && \
+    conda install -n final -c conda-forge pyorbital && \
+    conda install -n final -c conda-forge jsonpickle
+
+CMD /bin/bash && \
+    . /root/.bashrc && \
+    conda activate final && \
+    cd /app/databaseManager && \
+    python3 -u databaseManager.py
+

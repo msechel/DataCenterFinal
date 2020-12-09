@@ -1,0 +1,16 @@
+##
+## You provide this
+##
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-lookup
+  labels:
+    app: redis-lookup
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: redis-lookup

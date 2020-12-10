@@ -39,10 +39,11 @@ class requestHandler(object):
             self.connection.process_data_events()
         return self.currentSatellites
 
-
 @app.route('/', methods=['GET'])
 def hello():
-    return '<h1> requestRedisID </h1><p> Use a valid endpoint </p>'
+    messageBody =   {}
+    message=jsonpickle.encode(messageBody)
+    return Response(response=messageBody, status=200, mimetype="application/json")
 
 @app.route('/constellationRequest/', methods=['POST'])
 def doRequest():
